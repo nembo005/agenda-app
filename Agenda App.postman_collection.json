@@ -1,0 +1,259 @@
+{
+	"info": {
+		"_postman_id": "1d09acb2-1357-4975-a616-479e0c523a81",
+		"name": "Agenda App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "AGENDAs",
+			"item": [
+				{
+					"name": "Get all agendas",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/dev/agendas",
+							"protocol": "https",
+							"host": [
+								"{{apiId}}",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"agendas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new agenda",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"topic\": \"Water flowers\",\n    \"description\":\"Flowers are bueatiful. We meet Plaza \",\n\t\"dueDate\": \"2019-06-11\"\n}"
+						},
+						"url": {
+							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/dev/agendas",
+							"protocol": "https",
+							"host": [
+								"{{apiId}}",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"agendas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update agenda",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"topic\": \"AI For Good\",\n    \"description\": \"Google meet at http://letxmest.go.gl\",\n\t\"dueDate\": \"2019-12-11\",\n\t\"complete\": true\n}"
+						},
+						"url": {
+							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/dev/agendas/462b5488-2a11-46d6-ad08-45cae5ee39be",
+							"protocol": "https",
+							"host": [
+								"{{apiId}}",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"agendas",
+								"462b5488-2a11-46d6-ad08-45cae5ee39be"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete agenda",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/dev/agendas/462b5488-2a11-46d6-ad08-45cae5ee39be",
+							"protocol": "https",
+							"host": [
+								"{{apiId}}",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"agendas",
+								"462b5488-2a11-46d6-ad08-45cae5ee39be"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get attachment URL",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/dev/agendas/462b5488-2a11-46d6-ad08-45cae5ee39be/attachment",
+							"protocol": "https",
+							"host": [
+								"{{apiId}}",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"agendas",
+								"462b5488-2a11-46d6-ad08-45cae5ee39be",
+								"attachment"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{authToken}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "apiId",
+			"value": "80kk8o1660",
+			"type": "string"
+		},
+		{
+			"key": "authToken",
+			"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlhUai1sUGJxVDVodHRYbFNPbFhPRiJ9.eyJpc3MiOiJodHRwczovL2Rldi0zazdwNjFweXpqbDN2M2M2LnVzLmF1dGgwLmNvbS8iLCJhdWQiOiJnem8xZk9vV282WkpxbGFFeU1IdFl6YVQyNlpuNDVlQyIsImlhdCI6MTY4NTY5ODM2OSwiZXhwIjoxNjg2MzM4MzY5LCJzdWIiOiJhdXRoMHw2NDc5Yjc0MGQ0YzA4NjlhMWQyY2IzODUiLCJhdF9oYXNoIjoiWUxpdm1VWmtDUGd0MUtCSG5RWjktQSIsInNpZCI6IkQyY29wLTZwNzE2VTIxNnY4MFFLbzRLeFNFajFNbGRuIiwibm9uY2UiOiJWdy5TQnd4NEs0QnNFVS1ua3RyQ0V0aEhnNFlYM010NyJ9.c0sPf40TDr448yKMAEja44KUyjKjWdcm15ehan6IwE7cnukBlctgLAkn2C-S_ss5K1DjVDZO5vCpcPUv8RslIekuIJ55WCLScfpkcaghXuzEjSFkc3RWFdOWXOVxxxbRhPygGvMhauT08EyOyiyeLEVWsEMj50yijpAcO3szUh0B6rdaWv215sBVu6ZhanFTcYaR0U_8nTFbQgT77bL_PS--Zr_sEc983QiM5mYkf80P7G9eyHM8r-KYJN-Js7SRlaV5Td2h28GhvNKQTABDBwZKeUf2XrH-tIjbck1bdmzu2nCPqG_6c5bNzhLvvybusJmiJsD_gZBYfPN92mHTSA",
+			"type": "string"
+		}
+	]
+}
