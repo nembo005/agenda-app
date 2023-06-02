@@ -1,7 +1,9 @@
 # TODO: Change the name of the org 
-org: nembo005
+org: agendaapp
 app: serverless-agenda-app
 service: serverless-agenda-app
+
+configValidationMode: error
 
 plugins:
   - serverless-webpack
@@ -12,7 +14,6 @@ plugins:
 provider:
   name: aws
   runtime: nodejs18.x
-  lambdaHashingVersion: '20201221'
 
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'us-east-1'}
@@ -48,6 +49,7 @@ functions:
           path: agendas
           cors: true
           authorizer: Auth
+          reqValidatorName: RequestBodyValidator
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -113,6 +115,7 @@ functions:
           path: agendas/{agendaId}
           cors: true
           authorizer: Auth
+          reqValidatorName: RequestBodyValidator
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -131,6 +134,7 @@ functions:
           path: agendas/{agendaId}/attachment
           cors: true
           authorizer: Auth
+          reqValidatorName: RequestBodyValidator
     iamRoleStatements:
       - Effect: Allow
         Action: 
@@ -187,6 +191,11 @@ resources:
     AttachmentsBucket:
       Type: AWS::S3::Bucket
       Properties:
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: false
+          BlockPublicPolicy: false
+          IgnorePublicAcls: false
+          RestrictPublicBuckets: false
         BucketName: ${self:provider.environment.ATTACHMENT_S3_BUCKET}
         CorsConfiguration:
           CorsRules:
