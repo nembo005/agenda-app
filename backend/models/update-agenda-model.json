@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "group",
+  "type": "object",
+  "properties": {
+    "topic": {
+      "type": "string",
+      "minLength": 3,
+      "minItems": 3
+    },
+    "description": {
+      "type": "string",
+      "minLength": 3,
+      "minItems": 3
+    },
+    "dueDate": {
+      "type": "string"
+    },
+    "complete": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "topic",
+    "description",
+    "dueDate",
+    "complete"
+  ],
+  "additionalProperties": false
+}
