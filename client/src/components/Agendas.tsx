@@ -43,6 +43,10 @@ export class Agendas extends React.PureComponent<AgendasProps, AgendasState> {
     this.setState({ newAgendaTopic: event.target.value })
   }
 
+  hideBrokenImage = (event: React.SyntheticEvent<HTMLImageElement>) => {
+    event.currentTarget.style.visibility = "hidden";
+  }
+
   handleDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ newDescription: event.target.value })
   }
@@ -196,7 +200,7 @@ export class Agendas extends React.PureComponent<AgendasProps, AgendasState> {
               </Grid.Column>
               <Grid.Column width={10} verticalAlign="middle">
                 <h3>{agenda.topic}</h3>
-                <summary>{agenda.description}</summary>
+                <p>{agenda.description}</p>
               </Grid.Column>
               <Grid.Column width={3} floated="right">
                 {agenda.dueDate}
@@ -207,7 +211,7 @@ export class Agendas extends React.PureComponent<AgendasProps, AgendasState> {
                   color="blue"
                   onClick={() => this.onEditButtonClick(agenda.agendaId)}
                 >
-                  <Icon topic="pencil" />
+                  <Icon name="pencil" />
                 </Button>
               </Grid.Column>
               <Grid.Column width={1} floated="right">
@@ -216,14 +220,14 @@ export class Agendas extends React.PureComponent<AgendasProps, AgendasState> {
                   color="red"
                   onClick={() => this.onAgendaDelete(agenda.agendaId)}
                 >
-                  <Icon topic="delete" />
+                  <Icon name="delete" />
                 </Button>
               </Grid.Column>
               {agenda.attachmentUrl && (
                 <Image 
                   src={agenda.attachmentUrl} 
                   size="small" 
-                  onError= {(event: { target: { style: { display: string; } } }) => event.target.style.display = "none"} 
+                  onError= { this.hideBrokenImage } 
                   wrapped 
                 />
               )}
