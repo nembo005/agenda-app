@@ -16,8 +16,7 @@ export class AttachmentUtils {
         const presignedUrl:string = await s3.getSignedUrl('putObject', {
             Bucket: this.s3bucket,
             Key: `${userId}-${agendaId}`,
-            Expires: parseInt(this.expirationTime),
-            ContentType: 'image/jpeg/png'
+            Expires: parseInt(this.expirationTime)
         })
 
         return presignedUrl
