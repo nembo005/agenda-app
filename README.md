@@ -1,6 +1,6 @@
 # Serverless AGENDA
 
-To implement this project, you need to implement a simple AGENDA application using AWS Lambda and Serverless framework. Search for all comments starting with the `AGENDA:` in the code to find the placeholders that you need to implement.
+To implement this project, you need to implement a simple AGENDA application using AWS Lambda and Serverless framework. This AGENDA app will allow us to set a topic and a description of a meeting event and a due date to which the event should be held. We can also set if the event is complete or not using a check box..
 
 # Functionality of the application
 
@@ -8,13 +8,14 @@ This application will allow creating/removing/updating/fetching AGENDA items. Ea
 
 # AGENDA items
 
-The application should store AGENDA items, and each AGENDA item contains the following fields:
+In the AGENDA application, the Agenda items contain the following fields:
 
 * `agendaId` (string) - a unique id for an item
 * `createdAt` (string) - date and time when an item was created
-* `topic` (string) - topic of a AGENDA item (e.g. "Change a light bulb")
+* `topic` (string) - topic of a AGENDA item (e.g. "Board Meeting")
+* `description ` (string) - description of the AGENDA item
 * `dueDate` (string) - date and time by which an item should be completed
-* `complete` (boolean) - true if an item was completed, false otherwise
+* `complete` (boolean) - true if an agenda was completed, false otherwise
 * `attachmentUrl` (string) (optional) - a URL pointing to an image attached to a AGENDA item
 
 You might also store an id of a user who created a AGENDA item.
@@ -28,7 +29,7 @@ You might also store an id of a user who created a AGENDA item.
    * Create a <a href="https://dashboard.serverless.com/" target="_blank">Serverless account</a> user
    * Install the Serverless Framework’s CLI  (up to VERSION=2.21.1). Refer to the <a href="https://www.serverless.com/framework/docs/getting-started/" target="_blank">official documentation</a> for more help.
    ```bash
-   npm install -g serverless@2.21.1
+   npm install -g serverless@latest
    serverless --version
    ```
    * Login and configure serverless to use the AWS credentials 
@@ -40,33 +41,33 @@ You might also store an id of a user who created a AGENDA item.
    sls config credentials --provider aws --key YOUR_ACCESS_KEY_ID --secret YOUR_SECRET_KEY --profile serverless
    ```
    
-# Functions to be implemented
+# Functions involved in the application
 
-To implement this project, you need to implement the following functions and configure them in the `serverless.yml` file:
+In this project, the following functions are implemented and are configure in the `serverless.yml` file:
 
-* `Auth` - this function should implement a custom authorizer for API Gateway that should be added to all other functions.
+* `Auth` - this function implements a custom authorizer for API Gateway that is to all other functions.
 
-* `GetAgendas` - should return all AGENDAs for a current user. A user id can be extracted from a JWT token that is sent by the frontend
+* `GetAgendas` - returns all AGENDAs for a current user. A user id is extracted from a JWT token that is sent by the frontend
 
-It should return data that looks like this:
+It returns data that looks like this:
 
 ```json
 {
   "items": [
     {
-      "agendaId": "123",
+      "agendaId": "001",
       "createdAt": "2019-07-27T20:01:45.424Z",
-      "topic": "Buy milk",
-      "deacription":"",
+      "topic": "Board Meeting",
+      "description":"Meeting on Zoom link http://zoom.com/xyz Register before due date.",
       "dueDate": "2019-07-29T20:01:45.424Z",
       "complete": false,
       "attachmentUrl": "http://example.com/image.png"
     },
     {
-      "agendaId": "456",
+      "agendaId": "002",
       "createdAt": "2019-07-27T20:01:45.424Z",
-      "topic": "Send a letter",
-      "deacription":"",
+      "topic": "Cloud Computing Class",
+      "description":"Cloud computing lesson on deploying sererless applications.",
       "dueDate": "2019-07-29T20:01:45.424Z",
       "complete": true,
       "attachmentUrl": "http://example.com/image.png"
@@ -75,15 +76,15 @@ It should return data that looks like this:
 }
 ```
 
-* `CreateAgenda` - should create a new AGENDA for a current user. A shape of data send by a client application to this function can be found in the `CreateAgendaRequest.ts` file
+* `CreateAgenda` - creates a new AGENDA for a current user. A shape of data send by a client application to this function can is found in the `CreateAgendaRequest.ts` file
 
 It receives a new AGENDA item to be created in JSON format that looks like this:
 
 ```json
 {
   "createdAt": "2019-07-27T20:01:45.424Z",
-  "topic": "Buy milk",
-  "deacription":"",
+  "topic": "Board Meeting",
+  "description":"Meeting on Zoom link http://zoom.com/xyz Register before due date.",
   "dueDate": "2019-07-29T20:01:45.424Z",
   "complete": false,
   "attachmentUrl": "http://example.com/image.png"
@@ -97,8 +98,8 @@ It should return a new AGENDA item that looks like this:
   "item": {
     "agendaId": "123",
     "createdAt": "2019-07-27T20:01:45.424Z",
-    "topic": "Buy milk",
-    "deacription":"",
+    "topic": "Board Meeting",
+    "description":"Meeting on Zoom link http://zoom.com/xyz Register before due date.",
     "dueDate": "2019-07-29T20:01:45.424Z",
     "complete": false,
     "attachmentUrl": "http://example.com/image.png"
@@ -106,14 +107,14 @@ It should return a new AGENDA item that looks like this:
 }
 ```
 
-* `UpdateAgenda` - should update a AGENDA item created by a current user. A shape of data send by a client application to this function can be found in the `UpdateAgendaRequest.ts` file
+* `UpdateAgenda` - updates an AGENDA item created by a current user. A shape of data send by a client application to this function is found in the `UpdateAgendaRequest.ts` file
 
 It receives an object that contains three fields that can be updated in a AGENDA item:
 
 ```json
 {
-  "topic": "Buy bread",
-  "deacription":"",
+  "topic": "General Meeting",
+  "description":"Meeting on Zoom link http://zoom.com/abc Register before due date.",
   "dueDate": "2019-07-29T20:01:45.424Z",
   "complete": true
 }
@@ -121,15 +122,15 @@ It receives an object that contains three fields that can be updated in a AGENDA
 
 The id of an item that should be updated is passed as a URL parameter.
 
-It should return an empty body.
+It returns an empty body.
 
-* `DeleteAgenda` - should delete a AGENDA item created by a current user. Expects an id of a AGENDA item to remove.
+* `DeleteAgenda` - deletes an AGENDA item created by a current user. Expects an id of a AGENDA item to remove.
 
-It should return an empty body.
+It returns an empty body.
 
 * `GenerateUploadUrl` - returns a pre-signed URL that can be used to upload an attachment file for a AGENDA item.
 
-It should return a JSON object that looks like this:
+It returns a JSON object that looks like this:
 
 ```json
 {
@@ -148,7 +149,7 @@ You also need to add any necessary resources to the `resources` section of the `
 
 The `client` folder contains a web application that can use the API that should be developed in the project.
 
-This frontend should work with your serverless application once it is developed, you don't need to make any changes to the code. The only file that you need to edit is the `config.ts` file in the `client` folder. This file configures your client application just as it was complete in the course and contains an API endpoint and Auth0 configuration:
+This frontend works with the serverless application once it is developed. The only file that you need to edit is the `config.ts` file in the `client` folder. This file configures your client application just as it was complete in the course and contains an API endpoint and Auth0 configuration:
 
 ```ts
 const apiId = '...' API Gateway id
@@ -163,11 +164,9 @@ export const authConfig = {
 
 ## Authentication
 
-To implement authentication in your application, you would have to create an Auth0 application and copy "domain" and "client id" to the `config.ts` file in the `client` folder. We recommend using asymmetrically encrypted JWT tokens.
+To implement authentication in this application, I created an Auth0 application and copy "domain" and "client id" to the `config.ts` file in the `client` folder. I used asymmetrically encrypted JWT tokens.
 
 # Best practices
-
-To complete this exercise, please follow the best practices from the 6th lesson of this course.
 
 ## Logging
 
@@ -184,15 +183,6 @@ logger.info('User was authorized', {
   key: 'value'
 })
 ```
-
-
-# Grading the submission
-
-Once you have finished developing your application, please set `apiId` and Auth0 parameters in the `config.ts` file in the `client` folder. A reviewer would start the React development server to run the frontend that should be configured to interact with your serverless application.
-
-**IMPORTANT**
-
-*Please leave your application running until a submission is reviewed. If implemented correctly it will cost almost nothing when your application is idle.*
 
 # Suggestions
 
